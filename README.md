@@ -1,3 +1,3 @@
-# Robotica 2
-#### by **Ariel Rodrigo Colque Garcia**
-En este repositorio se agregaran avances, practicas laboratorios, etc de la materia de Robotica 2 de la Universidad de San Francisco Xavier de Chiquisaca
+# Robotica 2 - Proyectos de Visión Artificial
+Repositorio para la materia de Robótica 2 en la Universidad de San Francisco Xavier de Chuquisaca. Aquí encontrarás avances, prácticas, laboratorios y proyectos relacionados con la implementación de visión artificial en robots.
+
