@@ -14,7 +14,7 @@ while True:
   height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
   # una imagen de puros zeros
-  imagen = np.zeros(frame.shape, np.uint8)
+  imagen = np.ones(frame.shape, np.uint8)
 
   # el frame convertimos mas pequeno, a la mitad
   frame_small = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
