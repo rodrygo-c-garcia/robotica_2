@@ -53,6 +53,8 @@ def capture_video(cap, face_cascade, ser):
     # Enviar un 1 a través de la comunicación serial si hay rostros en ambos lados
     if rostro_en_izquierda and rostro_en_derecha:
       serial_send(ser, '1')
+    elif not rostro_en_izquierda and not rostro_en_derecha:
+      serial_send(ser, '0')
 
     cv2.imshow('my_video', cv2.flip(frame, 1))
 
