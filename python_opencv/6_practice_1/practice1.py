@@ -20,17 +20,18 @@ def capture_video(cap, face_cascade, ser):
     # obtenenos las pociones de las caras
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     for (x, y, w, h) in faces:
+      # x, y
       center = (x + w//2, y + h//2)
       radius = max(w, h)//2
 
       if(center[0] > frame.shape[1]//2):
         # RED
         cv2.circle(frame, center, radius, (0, 0, 255), 3)
-        #serial_send(ser, 'B')
+        serial_send(ser, 'G')
       else:
         # BLUE
         cv2.circle(frame, center, radius, (100, 0, 0), 3)
-        #serial_send(ser, 'G')
+        serial_send(ser, 'B')
 
     cv2.imshow('my_video', cv2.flip(frame, 1))
 
@@ -38,14 +39,15 @@ def capture_video(cap, face_cascade, ser):
       print(frame.shape)
       print(frame.shape[1]//2)
       print(center)
+      serial_send(ser, '0')
       ser.close()
       break
+    
   cap.release()
   cv2.destroyAllWindows()
 
 def serial_send(ser, data):
-  print(ser.name)
-  time.sleep(1)
+  print('Data: ' + data)
   ser.write(data.encode())
 
 
