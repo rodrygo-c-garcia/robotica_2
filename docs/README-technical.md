@@ -12,6 +12,7 @@ En este ejercicio, se utiliza OpenCV en Python para detectar rostros en tiempo r
 
 - **Envío de datos a través de la comunicación serial:** Se envían caracteres específicos ("G" o "B") a través de la comunicación serial para controlar LEDs externos, dependiendo de la posición de los rostros detectados. Si se detectan rostros en ambos lados, se envía un "1" para encender ambos LEDs.
 
+### **Video**
 
 https://github.com/rodrygo-c-garcia/robotica_2/assets/43041624/857a13f4-2f61-4190-9427-b904ee280c4c
 
