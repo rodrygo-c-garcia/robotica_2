@@ -1,4 +1,4 @@
-# Practice ONE
+# [Practice ONE](https://github.com/rodrygo-c-garcia/robotica_2/tree/master/python_opencv/6_practice_1)
 
 ### **Descripción del ejercicio**
 
