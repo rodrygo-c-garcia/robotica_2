@@ -21,8 +21,8 @@ def capture_video(cap, face_cascade, ser):
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
     # Variables para determinar si hay rostros en ambos lados
-    rostro_en_izquierda = False
-    rostro_en_derecha = False
+    face_left = False
+    face_rigth = False
 
     # recorrer las caras detectadas
     for (x, y, w, h) in faces:
@@ -31,9 +31,9 @@ def capture_video(cap, face_cascade, ser):
 
       # Verificar si el centro del rostro está a la derecha o a la izquierda de la mitad del ancho del marco
       if center[0] > frame.shape[1] // 2:
-          rostro_en_derecha = True
+          face_rigth = True
       else:
-          rostro_en_izquierda = True
+          face_left = True
 
       radius = max(w, h)//2
 
@@ -51,15 +51,17 @@ def capture_video(cap, face_cascade, ser):
       print(f'Shape Frame : {frame.shape}')
 
     # Enviar un 1 a través de la comunicación serial si hay rostros en ambos lados
-    if rostro_en_izquierda and rostro_en_derecha:
+    if face_left and face_rigth:
       serial_send(ser, '1')
-    elif not rostro_en_izquierda and not rostro_en_derecha:
-      serial_send(ser, '0')
+
+    # if len(faces) == 0:
+    #   serial_send(ser, '0')
 
     cv2.imshow('my_video', cv2.flip(frame, 1))
 
     if(cv2.waitKey(1)== ord('q')):
       serial_send(ser, '0')
+      print(len(faces))
       ser.close()
       break
 
