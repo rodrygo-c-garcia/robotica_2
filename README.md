@@ -1,5 +1,5 @@
 # Robótica 2 - Universidad San Francisco Xavier de Chuquisaca
-¡Bienvenido al repositorio de la materia de **Robótica 2** de **8vo semestre** de la carrera de Ingeniería en Ciencias de la Computación en la Universidad San Francisco Xavier de Chuquisaca!
+¡Bienvenido al repositorio de la materia de **Robótica 2** de **8vo semestre** de la carrera de **Ingeniería en Ciencias de la Computación** en la Universidad San Francisco Xavier de Chuquisaca!
 
 En este repositorio, exploraremos los conceptos avanzados de robótica, centrándonos en la integración de visión por computadora utilizando OpenCV y electrónica utilizando Arduino. A lo largo del curso, iremos combinando estos conocimientos para diseñar y construir un robot capaz de detectar objetos utilizando una cámara.
 
