@@ -17,7 +17,7 @@ def capture_video(cap, face_cascade, ser):
   
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # obtenenos las pociones de las caras
+    # obtenenos las posiciones de las caras
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
     # Variables para determinar si hay rostros en ambos lados
