@@ -11,9 +11,9 @@ def capture_video(cap, face_cascade, ser):
   while True:
     ret, frame = cap.read()
     # BLUE
-    cv2.rectangle(frame, (frame.shape[1]//2, frame.shape[0]), (0, 0), (100, 0, 0), 3)
+    cv2.rectangle(frame, (frame.shape[1]//2, frame.shape[0]), (0, 0), (100, 0, 0), 2)
     # RED
-    cv2.rectangle(frame, (frame.shape[1], frame.shape[0]), (frame.shape[1]//2, 0), (0, 0, 255), 3)
+    cv2.rectangle(frame, (frame.shape[1], frame.shape[0]), (frame.shape[1]//2, 0), (0, 0, 255), )
   
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -39,15 +39,11 @@ def capture_video(cap, face_cascade, ser):
 
       if(center[0] > frame.shape[1]//2):
         # RED
-        cv2.circle(frame, center, radius, (0, 0, 255), 3)
-        # Dibuja un punto en la posición del centro
-        cv2.circle(frame, center, radius=3, color=(255, 0, 0), thickness=-1)
+        draw_circle(frame, center, radius=radius, color=(0, 0, 255))
         serial_send(ser, 'G')
       else:
         # BLUE
-        cv2.circle(frame, center, radius, (100, 0, 0), 3)
-        # Dibuja un punto en la posición del centro
-        cv2.circle(frame, center, radius=3, color=(255, 0, 0), thickness=-1)
+        draw_circle(frame, center, radius=radius, color=(100, 0, 0))
         serial_send(ser, 'B')
 
       print(f'Center X: {center[0]}')
@@ -61,7 +57,8 @@ def capture_video(cap, face_cascade, ser):
     # if len(faces) == 0:
     #   serial_send(ser, '0')
 
-    cv2.imshow('my_video', cv2.flip(frame, 1))
+    cv2.imshow('my_video', frame)
+    # cv2.imshow('my_video', cv2.flip(frame, 1))
 
     if(cv2.waitKey(1)== ord('q')):
       serial_send(ser, '0')
@@ -73,9 +70,13 @@ def capture_video(cap, face_cascade, ser):
   cv2.destroyAllWindows()
 
 def serial_send(ser, data):
-  print('Data: ' + data)
+  # print('Data: ' + data)
   ser.write(data.encode())
 
+def draw_circle(frame, center, radius, color):
+  cv2.circle(frame, center, radius, color, 3)
+  # Dibuja un punto en la posición del centro
+  cv2.circle(frame, center, radius=3, color=color, thickness=-1)
 
 if __name__ == '__main__':
   capture_video(cap, face_cascade, ser)
