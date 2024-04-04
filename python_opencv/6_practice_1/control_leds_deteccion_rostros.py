@@ -28,6 +28,7 @@ def capture_video(cap, face_cascade, ser):
     for (x, y, w, h) in faces:
       # x, y
       center = (x + w//2, y + h//2)
+      center_str = str(center)
 
       # Verificar si el centro del rostro está a la derecha o a la izquierda de la mitad del ancho del marco
       if center[0] > frame.shape[1] // 2:
@@ -40,10 +41,12 @@ def capture_video(cap, face_cascade, ser):
       if(center[0] > frame.shape[1]//2):
         # RED
         cv2.circle(frame, center, radius, (0, 0, 255), 3)
+        cv2.putText(frame, center_str, center, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         serial_send(ser, 'G')
       else:
         # BLUE
         cv2.circle(frame, center, radius, (100, 0, 0), 3)
+        cv2.putText(frame, center_str, center, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         serial_send(ser, 'B')
 
       print(f'Center X: {center[0]}')
