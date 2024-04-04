@@ -10,11 +10,16 @@ def capture_video(cap, face_cascade, ser):
 
   while True:
     ret, frame = cap.read()
+    
+    print(f'Shape Frame : {frame.shape}')
+    
     # BLUE
-    cv2.rectangle(frame, (frame.shape[1]//2, frame.shape[0]), (0, 0), (100, 0, 0), 2)
+    cv2.rectangle(frame, (frame.shape[1]//2, frame.shape[0]//2), (0, 0), (100, 0, 0), 2)
     # RED
-    cv2.rectangle(frame, (frame.shape[1], frame.shape[0]), (frame.shape[1]//2, 0), (0, 0, 255), )
-  
+    cv2.rectangle(frame, (frame.shape[1], frame.shape[0]//2), (frame.shape[1]//2, 0), (0, 0, 255), 2)
+    # 
+    cv2.rectangle(frame, (frame.shape[0]//2, frame.shape[1]), (frame.shape[1], 0), (0, 255, 0), 2)
+
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # obtenenos las posiciones de las caras
