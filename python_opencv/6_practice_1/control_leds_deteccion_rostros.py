@@ -41,37 +41,36 @@ def capture_video(cap, face_cascade, ser):
       if center[0] > frame.shape[1]//2 and center[1] < frame.shape[0]//2:
         face_rigth_1 = True
         print('rigth_1')
+        # GREEN
+        draw_circle(frame, center, radius=radius, color=(0, 0, 255))
+        serial_send(ser, 'G')
       if center[0] < frame.shape[1]//2 and center[1] < frame.shape[0]//2:
         face_left_1 = True
         print('left_1')
-      if center[0] > frame.shape[1]//2 and center[1] > frame.shape[0]//2:
-        face_rigth_2 = True
-        print('rigth_2')
-      if center[0] < frame.shape[1]//2 and center[1] > frame.shape[0]//2:
-        face_left_2 = True
-        print('left_2')
-      
-
-      if(center[0] > frame.shape[1]//2):
-        # RED
-        draw_circle(frame, center, radius=radius, color=(0, 0, 255))
-        serial_send(ser, 'G')
-      else:
         # BLUE
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
         serial_send(ser, 'B')
-
+      if center[0] > frame.shape[1]//2 and center[1] > frame.shape[0]//2:
+        face_rigth_2 = True
+        print('rigth_2')
+        # RED
+        draw_circle(frame, center, radius=radius, color=(100, 0, 0))
+        serial_send(ser, 'R')
+      if center[0] < frame.shape[1]//2 and center[1] > frame.shape[0]//2:
+        face_left_2 = True
+        print('left_2')
+        # YELLOW
+        draw_circle(frame, center, radius=radius, color=(100, 0, 0))
+        serial_send(ser, 'Y')
+      
       print(f'Center X: {center[0]}')
       print(f'Center y: {center[1]}')
       print(f'Shape X: {frame.shape[1]//2}')
       print(f'Shape Y: {frame.shape[0]//2}')
 
-    # Enviar un 1 a través de la comunicación serial si hay rostros en ambos lados
-    #if face_left and face_rigth:
-      # serial_send(ser, '1')
-
-    # if len(faces) == 0:
-    #   serial_send(ser, '0')
+    # Enviar un 4 a través de la comunicación serial si hay rostros en los 4 lados
+    if face_left_1 and face_rigth_1 and face_left_2 and face_rigth_2:
+      serial_send(ser, '4')
 
     cv2.imshow('my_video', frame)
     # cv2.imshow('my_video', cv2.flip(frame, 1))
