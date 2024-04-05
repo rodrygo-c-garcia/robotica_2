@@ -72,8 +72,8 @@ def capture_video(cap, face_cascade, ser):
     if face_left_1 and face_rigth_1 and face_left_2 and face_rigth_2:
       serial_send(ser, '4')
 
-    cv2.imshow('my_video', frame)
-    # cv2.imshow('my_video', cv2.flip(frame, 1))
+    # cv2.imshow('my_video', frame)
+    cv2.imshow('my_video', cv2.flip(frame, 1))
 
     if(cv2.waitKey(1)== ord('q')):
       serial_send(ser, '0')
