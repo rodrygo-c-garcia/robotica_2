@@ -45,7 +45,7 @@ def capture_video(cap, face_cascade, ser):
         # BLUE
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
         serial_send(ser, 'B')
-      cv2.putText(frame, 'Hola mundo', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+      # cv2.putText(frame, 'Hola mundo', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
       
       print(f'Center X: {center[0]}')
       print(f'Shape X: {frame.shape[1]//2}')
