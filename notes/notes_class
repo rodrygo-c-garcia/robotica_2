@@ -1,0 +1,25 @@
+# NOTE CLASS
+Primer parcial:
+- Dividir la pantalla en 5 partes
+- Comunicacion Bluetooh
+- Comunicacion Serial
+
+Especificacion:
+Si el rostro se encuentra al medio, no se mueve el carrito
+Si el rostro se encuentra en el lado izquierda -> se mueve a izquierda
+					       -> se mueve a derecha
+					       -> se mueve adelante
+					       -> se mueve atras
+
+2 semanas, viernes 19 de abril, presentar el robot controlada por el rostro
+
+# Protocolo HTTP -> GrapQL o RESTful
+# HTTP verbs o metodos, GET, POST, PUT, DELET
+
+STATUS HTTP:
+
+1xx -> Mensajes de informacion
+2xx -> EXITO
+3xx -> Redireccion
+4xx -> ERROR CLiente 
+5xx -> ERROR Servidor
