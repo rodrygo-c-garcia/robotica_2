@@ -1,0 +1,8 @@
+# CLASS 12-04-24
+
+protocolo MQTT, basado en HTTP.
+
+Broker (servidor), es el intermediario ne la comunicacion entre (cliente) 
+suscriptor y publicador.
+
+mosquito -> server
