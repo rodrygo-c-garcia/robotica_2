@@ -9,7 +9,7 @@ void setup() {
 }
 
 void loop() {
-  if (miBT.available()){    // lee BT y envia a ARDUINO
+  if (miBT.available()){    // lee BT y envia a ARDUINOo
     Serial.write(miBT.read());
   }
 
