@@ -51,12 +51,13 @@ def capture_video(cap, face_cascade):
         print('LEFT')
         # GREEN
         draw_circle(frame, center, radius=radius, color=(0, 0, 255))
+        
       if center[0] > part_2W:
         print('RIGHT')
         # BLUE
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
 
-      if center[0] > part_1W and center[1] < part_1H:
+      if center[0] > part_1W and center[0] < part_2W and center[1] < part_1H:
         print('TOP')
         # RED
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
@@ -66,15 +67,15 @@ def capture_video(cap, face_cascade):
         # YELLOW
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
       
-      if center[0] > part_1W and center[1] > part_2H:
+      if center[0] > part_1W and center[0] < part_2W and center[1] > part_2H:
         print('LOW')
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
         
       print(f'Center X: {center[0]}')
       print(f'Center y: {center[1]}')
 
-    cv2.imshow('my_video', frame)
-    #cv2.imshow('my_video', cv2.flip(frame, 1))
+    #cv2.imshow('my_video', frame)
+    cv2.imshow('my_video', cv2.flip(frame, 1))
 
     if(cv2.waitKey(1)== ord('q')):
       #serial_send(ser, '0')
