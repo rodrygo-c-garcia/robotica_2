@@ -7,5 +7,8 @@ https://mosquitto.org/man/mosquitto_pub-1.html --> para publicar
 # -v --> para ver datos del publicador
 mosquitto_sub -h test.mosquitto.org -t "alsw/test1" -v
 
+# suscribirse a varios topics
+mosquitto_sub -h test.mosquitto.org -t "alsw/test2" -t "alsw/test1" -v
+
 # Comando para un publicador
 mosquitto_pub -h test.mosquitto.org -t "alsw/test1" -m "Esto es un mensaje" -d
