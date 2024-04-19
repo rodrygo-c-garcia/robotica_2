@@ -70,7 +70,7 @@ def capture_video(cap, face_cascade):
         print('CENTER')
         # YELLOW
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
-        serial_send('O')
+        serial_send('E')
       
       if center[0] > part_1W and center[0] < part_2W and center[1] > part_2H:
         print('LOW')
