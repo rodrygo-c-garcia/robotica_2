@@ -4,9 +4,9 @@ import numpy as np
 
 cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+ser = serial.Serial('/dev/rfcomm0', 9600)
 
-def capture_video(cap, face_cascade, ser):
+def capture_video(cap, face_cascade):
 
   while True:
     ret, frame = cap.read()
@@ -52,30 +52,30 @@ def capture_video(cap, face_cascade, ser):
         print('LEFT')
         # GREEN
         draw_circle(frame, center, radius=radius, color=(0, 0, 255))
-        serial_send(ser, 'I')
+        serial_send('A')
         
       if center[0] > part_2W:
         print('RIGHT')
         # BLUE
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
-        serial_send(ser, 'D')
+        serial_send('D')
         
       if center[0] > part_1W and center[0] < part_2W and center[1] < part_1H:
         print('TOP')
         # RED
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
-        serial_send(ser, 'A')
+        serial_send('W')
         
       if center[0] > part_1W and center[0] < part_2W and center[1] > part_1H and center[1] < part_2H:
         print('CENTER')
         # YELLOW
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
-        serial_send(ser, 'I')
+        serial_send('O')
       
       if center[0] > part_1W and center[0] < part_2W and center[1] > part_2H:
         print('LOW')
         draw_circle(frame, center, radius=radius, color=(100, 0, 0))
-        serial_send(ser, 'R')
+        serial_send('S')
         
       print(f'Center X: {center[0]}')
       print(f'Center y: {center[1]}')
@@ -92,8 +92,8 @@ def capture_video(cap, face_cascade, ser):
   cap.release()
   cv2.destroyAllWindows()
 
-def serial_send(ser, data):
-  # print('Data: ' + data)
+def serial_send(data):
+  print('Data: ' + data)
   ser.write(data.encode())
 
 def draw_circle(frame, center, radius, color):
@@ -102,4 +102,4 @@ def draw_circle(frame, center, radius, color):
   cv2.circle(frame, center, radius=3, color=color, thickness=-1)
 
 if __name__ == '__main__':
-  capture_video(cap, face_cascade, ser)
+  capture_video(cap, face_cascade)
