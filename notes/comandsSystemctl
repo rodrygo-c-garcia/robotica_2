@@ -1,0 +1,28 @@
+# comands SYSTEMCTL
+# muestra los puertos en los que hay servicios escuchando
+sudo lsof -i -P -n | grep LISTEN
+
+# muestra todos los servicios activos
+sudo systemctl list-units --type service
+
+# muestra todos los servicios activos o inactivos
+sudo systemctl list-unit-files --type service --all
+
+# monitorea la actividad de los servicios
+# mosquitto -> name service
+sudo journalctl -u mosquitto -f
+
+# PERMISSE FIREWALL TRAFIC TO PORT #
+sudo ufw allow 1883
+
+# FIREWALL IPTABLES
+# show INPUTS ON FIREWALL
+sudo iptables -L
+
+# add trafic in tcp on port 1883
+sudo iptables -A INPUT -p tcp --dport 1883 -j ACCEPT
+
+# trafic in udp on port
+sudo iptables -A INPUT -p udp --dport 1883 -j ACCEPT
+
+
