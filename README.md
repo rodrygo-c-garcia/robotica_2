@@ -8,4 +8,4 @@ En este repositorio, exploraremos los conceptos avanzados de robótica, centrán
 
 **Arduino:** Aquí encontrarás ejemplos de programas y proyectos que utilizan Arduino, una plataforma de prototipado electrónico, para controlar y automatizar componentes y actuadores.
 
-**Integración:** En esta sección, exploraremos proyectos y ejemplos que combinan OpenCV y Arduino para crear aplicaciones de robótica avanzadas, incluida la detección de objetos utilizando una cámara integrada en un robot.
+**Integración:** En esta sección, exploraremos proyectos y ejemplos que combinan OpenCV, MQTT y Arduino para crear aplicaciones de robótica avanzadas, incluida la detección de objetos utilizando una cámara integrada en un robot. MQTT es un protocolo de mensajería ligero y de código abierto diseñado para dispositivos con recursos limitados y redes de baja capacidad, lo que lo hace ideal para la comunicación entre dispositivos IoT en tiempo real..
