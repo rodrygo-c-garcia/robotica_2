@@ -1,1 +1,33 @@
 # COMANDS AT
+# CWSAP: AT+CWSAP="ESP_RBTC", "10203040",5,3
+
+
+AT+CWMODE? --> muestra el modo en el que nos encotramos (1, 2, 3)
+
+AT+RESTORE --> Reestablece todas las configuraciones
+
+AT+GMR --> muestra la version del firmware
+###### STATION o CLIENTE
+AT+CWHOSTNAME? --> obtiene el nombre de la estacion
+
+AT+CWLAP --> busca redes disponibles
+
+AT+CWJAP="nombre_wif","password_wifi" --> nos conectamos al red indicada
+
+AT+CWJAP? --> consulatmos la red a la cual estamos conectados
+
+AT+CWQAP --> desconectamos de la red WIFI
+
+AT+CIFSR --> obtenemos la IP que se nos asigno
+
+###### ACCESS POINT (Punto de Acceso)
+AT+CWSAP? --> muestra el nombre y la contraseña (+CWSAP:"AI-THINKER_E2636F","",1,0,4,0␍)
+
+
+AT+CWSAP="ESP","1234567890",5,3 --> cambiamos el nombre del Punto de Acceso de nuestro modulo (softAP) (+CWSAP:"AI-THINKER_E2636F","",1,0,4,0) por default
+
+AT+CWLIF --> obtiene el IP de los dispositivos conectados
+
+
+#### MODE 3
+AT+CIFSR --> obtenemos las IPs asignadas
