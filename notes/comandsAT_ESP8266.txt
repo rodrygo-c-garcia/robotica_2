@@ -3,6 +3,7 @@
 
 
 AT+CWMODE? --> muestra el modo en el que nos encotramos (1, 2, 3)
+AT+CWMODE=? --> muestra el rango de los valores que acepta
 
 AT+RESTORE --> Reestablece todas las configuraciones
 
@@ -12,13 +13,25 @@ AT+CWHOSTNAME? --> obtiene el nombre de la estacion
 
 AT+CWLAP --> busca redes disponibles
 
-AT+CWJAP="nombre_wif","password_wifi" --> nos conectamos al red indicada
+# encriptacion:
+0-4 => 0 -> abierto, 1 -> WEP, 2 3, 4 -> WPA
+# SSID => nombre de la red
+# RSSI, Potencia señal en dBm = 10*log(PotWatt/1*10`-3) ideal -60, -68
+# MAC del Router
 
-AT+CWJAP? --> consulatmos la red a la cual estamos conectados
+AT+CWJAP="nombre_wifi","password_wifi" --> nos conectamos al red indicada
+
+AT+CWJAP? --> consultamos la red a la cual estamos conectados
 
 AT+CWQAP --> desconectamos de la red WIFI
 
 AT+CIFSR --> obtenemos la IP que se nos asigno
+
+AT+CIPMUX=1 --> multiconexion, actua como un servidor
+AT+CIPSERVER=1,80
+#         # servicio
+# 1024 -> puertos reservados
+
 
 ###### ACCESS POINT (Punto de Acceso)
 AT+CWSAP? --> muestra el nombre y la contraseña (+CWSAP:"AI-THINKER_E2636F","",1,0,4,0␍)
