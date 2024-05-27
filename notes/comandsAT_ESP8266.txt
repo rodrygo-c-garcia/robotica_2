@@ -1,3 +1,5 @@
+ESP8266 o ESP01
+
 # COMANDS AT
 # CWSAP: AT+CWSAP="ESP_RBTC", "10203040",5,3
 
@@ -8,6 +10,8 @@ AT+CWMODE=? --> muestra el rango de los valores que acepta
 AT+RESTORE --> Reestablece todas las configuraciones
 
 AT+GMR --> muestra la version del firmware
+AT+CIOBAUD=9600
+
 ###### STATION o CLIENTE
 AT+CWHOSTNAME? --> obtiene el nombre de la estacion
 
@@ -29,8 +33,15 @@ AT+CIFSR --> obtenemos la IP que se nos asigno
 
 AT+CIPMUX=1 --> multiconexion, actua como un servidor
 AT+CIPSERVER=1,80
-#         # servicio
-# 1024 -> puertos reservados
+#         # 1 activado, 80 (http) puerto o 443 https
+# 1024 -> algunos puertos son reservados hasta 1024
+192.168.43.191 --> desde el navegador
+
+# Respuesta desde
+AT+CIPSEND=0,30 --> formamos el body
+AT+CIPCLOSE=0
+AT+CIPSERVER=0
+
 
 
 ###### ACCESS POINT (Punto de Acceso)
@@ -44,3 +55,18 @@ AT+CWLIF --> obtiene el IP de los dispositivos conectados
 
 #### MODE 3
 AT+CIFSR --> obtenemos las IPs asignadas
+
+Para que reciba multiples peticiones (servidor)
+AT+CIPMUX=1
+
+
+2do parcial
+
+ESP ARD Sensor Ultrasonico
+el sensor debe devolver la distancia, y ver desde el navegador
+
+con OMAR
+viernes 7 de junio --> defensa
+
+
+ctrl + alt + f6
