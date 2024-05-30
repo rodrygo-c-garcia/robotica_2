@@ -24,6 +24,7 @@ AT+CWLAP --> busca redes disponibles
 # MAC del Router
 
 AT+CWJAP="nombre_wifi","password_wifi" --> nos conectamos al red indicada
+AT+CWJAP="Flia. Colque","b805z45w"
 
 AT+CWJAP? --> consultamos la red a la cual estamos conectados
 
@@ -35,12 +36,14 @@ AT+CIPMUX=1 --> multiconexion, actua como un servidor
 AT+CIPSERVER=1,80
 #         # 1 activado, 80 (http) puerto o 443 https
 # 1024 -> algunos puertos son reservados hasta 1024
-192.168.43.191 --> desde el navegador
+192.168.43.191:80 --> desde el navegador
 
 # Respuesta desde
 AT+CIPSEND=0,30 --> formamos el body
 AT+CIPCLOSE=0
 AT+CIPSERVER=0
+
+AT+RST -> e iniciamos todo desde el AT+CIPMUX
 
 
 
