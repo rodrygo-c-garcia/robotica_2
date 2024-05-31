@@ -11,6 +11,8 @@ AT+RESTORE --> Reestablece todas las configuraciones
 
 AT+GMR --> muestra la version del firmware
 AT+CIOBAUD=9600
+AT+UART_CUR=9600,8,1,0,0
+AT+IPR=9600
 
 ###### STATION o CLIENTE
 AT+CWHOSTNAME? --> obtiene el nombre de la estacion
@@ -38,10 +40,38 @@ AT+CIPSERVER=1,80
 # 1024 -> algunos puertos son reservados hasta 1024
 192.168.43.191:80 --> desde el navegador
 
+// respuesta cuando se conecta desde el navegador
+
+0,CONNECT
+
++IPD,0,372:GET / HTTP/1.1
+Host: 192.168.1.10
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: es-MX,es;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Priority: u=1
+
+
 # Respuesta desde
 AT+CIPSEND=0,30 --> formamos el body
+
+OK
+> MENSAJE A ENVIAR
+
 AT+CIPCLOSE=0
+
+Recv 30 bytes
+
+SEND OK
+
 AT+CIPSERVER=0
+
+OK
+0,CLOSED
+
 
 AT+RST -> e iniciamos todo desde el AT+CIPMUX
 
@@ -50,6 +80,18 @@ AT+RST -> e iniciamos todo desde el AT+CIPMUX
 ###### ACCESS POINT (Punto de Acceso)
 AT+CWSAP? --> muestra el nombre y la contraseña (+CWSAP:"AI-THINKER_E2636F","",1,0,4,0␍)
 
+ready
+WIFI CONNECTED
+WIFI GOT I
+
+AT+CIFSR
+
++CIFSR:APIP,"192.168.4.1"
++CIFSR:APMAC,"86:f3:eb:e2:63:6f"
++CIFSR:STAIP,"192.168.1.10"
++CIFSR:STAMAC,"84:f3:eb:e2:63:6f"
+
+OK
 
 AT+CWSAP="ESP","1234567890",5,3 --> cambiamos el nombre del Punto de Acceso de nuestro modulo (softAP) (+CWSAP:"AI-THINKER_E2636F","",1,0,4,0) por default
 
