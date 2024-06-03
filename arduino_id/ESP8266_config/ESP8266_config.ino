@@ -4,7 +4,7 @@
 
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
 String comand = "AT";
-String mensaje = "DESDE ARDUINO, CODIGO";
+String mensaje = "MENSAJE DESDE ARDUINO, CODIGO";
 String responseESP = "";
 int index = 0;
 String ordenes[]=
@@ -23,9 +23,6 @@ void setup() {
   // Inicia la comunicación serial con el baud rate adecuado
   Serial.begin(9600);
   esp8266.begin(9600);
-
-  esp8266.println(ordenes[index]);
-  delay(1000);
 }
 
 void loop() {
@@ -84,7 +81,7 @@ void loop() {
   if(checkNotIsRST(index)){
     index = -1;
     responseESP = "";
-    Serial.println("Resteando...");
+    Serial.println("Reseteando...");
     delay(5000);
   }
 }
