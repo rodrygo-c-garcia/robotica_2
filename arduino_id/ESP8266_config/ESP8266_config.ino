@@ -1,3 +1,4 @@
+// ESP82266 + HC-SR04
 #include <SoftwareSerial.h>
 #define BT_RX  10
 #define BT_TX  11
