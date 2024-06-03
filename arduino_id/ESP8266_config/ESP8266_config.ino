@@ -2,6 +2,7 @@
 #include <SoftwareSerial.h>
 #define BT_RX  10
 #define BT_TX  11
+// 192.168.129.22
 
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
 String comand = "AT";
