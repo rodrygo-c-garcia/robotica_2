@@ -1,7 +1,7 @@
 // ESP82266 + HC-SR04
 #include <SoftwareSerial.h>
 #include <Ultrasonic.h>
-
+// 192.168.1.3
 
 #define BT_RX  10  // Pin RX para el módulo ESP8266
 #define BT_TX  11  // Pin TX para el módulo ESP8266
@@ -18,7 +18,7 @@ Ultrasonic ultrasonic(triggerPin, echoPin);
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
 String responseESP = "";
 int index = 0; // Índice para recorrer los comandos AT
-
+String mensaje = "";
 // comandos AT para la conexion
 String ordenes[]=
   {  
@@ -66,16 +66,16 @@ void loop() {
         // en caso de tener una respuesta, verificamos si es una solicitud de un cliente
         if (checkConecction(responseESP)) {
            index++;
-           String comandCIPSEND = "AT+CIPSEND=0," + String(distance).length(); // formamos el comando para enviar el mensaje con los bytes de distancia
+           mensaje = "Distancia:" + String(distance) + "cm";
+           String comandCIPSEND = "AT+CIPSEND=0," + String(mensaje.length()); // formamos el comando para enviar el mensaje con los bytes de distancia
            esp8266.println(comandCIPSEND);  // enviamos el comando para que se pueda enviar un mensaje
+           Serial.println(comandCIPSEND);
            delay(1000);
            
            // verficamos si se puede enviar mensaje
            if (responseESP8266().indexOf(">") != -1) {
-            esp8266.print("Distancia: ");
             // enviamos mensaje
-            esp8266.print(distance);
-            esp8266.println(" cm");
+            esp8266.print(mensaje);
             Serial.println("Mensaje Enviado");
             // una vez enviado el mensaje salimos del ciclo para continuar con el siguiente comando, que es cerrar el CIPCLOSE
             break;
