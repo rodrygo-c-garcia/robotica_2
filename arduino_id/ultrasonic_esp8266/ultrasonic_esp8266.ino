@@ -66,15 +66,18 @@ void loop() {
         // en caso de tener una respuesta, verificamos si es una solicitud de un cliente
         if (checkConecction(responseESP)) {
            index++;
-           esp8266.println(ordenes[index]);  // enviamos el siguiente comando formando el numero de bytes
-           delay(500);
+           String comandCIPSEND = "AT+CIPSEND=0," + String(distance).length(); // formamos el comando para enviar el mensaje con los bytes de distancia
+           esp8266.println(comandCIPSEND);  // enviamos el comando para que se pueda enviar un mensaje
+           delay(1000);
            
            // verficamos si se puede enviar mensaje
            if (responseESP8266().indexOf(">") != -1) {
             esp8266.print("Distancia: ");
             // enviamos mensaje
-            esp8266.println(distance);
+            esp8266.print(distance);
+            esp8266.println(" cm");
             Serial.println("Mensaje Enviado");
+            // una vez enviado el mensaje salimos del ciclo para continuar con el siguiente comando, que es cerrar el CIPCLOSE
             break;
            } else {
             Serial.println("Mensaje no enviado");
@@ -82,10 +85,12 @@ void loop() {
             break;
            }
         }
-        
+
+        // esperamos 1 minuto para que un cliente pueda conectarse
         if (esperar == 30) {
           Serial.println("SALIENDO...");
           index=-1;
+          // si no hay cliente, salimos para configurar nuevamente el servidor con CIPSERVER
           break;
         }
         Serial.println(responseESP);
@@ -99,11 +104,15 @@ void loop() {
     Serial.println("ERROR EN AT");
     index = -1;
   }
+  // en cada loop se ira incrementando el index, con eso garantizamos para avanzar al siguiente comando
   index++;
+  // entonces enviamos el comando siguiente
   esp8266.println(ordenes[index]);
-  delay(500);
+  // esperamos 1 minuto
+  delay(1000);
   responseESP = "";
 
+  // verificamos si estamos en el ultimo comando AT+RST para setear el indice y comenzar todo de nuevo 
   if(checkNotIsRST(index)){
     index = -1;
     responseESP = "";
