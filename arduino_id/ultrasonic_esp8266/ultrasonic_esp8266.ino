@@ -2,8 +2,9 @@
 #include <SoftwareSerial.h>
 #include <Ultrasonic.h>
 
-#define BT_RX  10
-#define BT_TX  11
+
+#define BT_RX  10  // Pin RX para el módulo ESP8266
+#define BT_TX  11  // Pin TX para el módulo ESP8266
 
 // SENSOR ULTRASONICO
 int triggerPin = 8;
@@ -15,10 +16,10 @@ Ultrasonic ultrasonic(triggerPin, echoPin);
 
 
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
-String comand = "AT";
-String mensaje = "MENSAJE DESDE ARDUINO, CODIGO";
 String responseESP = "";
-int index = 0;
+int index = 0; // Índice para recorrer los comandos AT
+
+// comandos AT para la conexion
 String ordenes[]=
   {  
      "AT",
@@ -40,25 +41,32 @@ void setup() {
 
 void loop() {
   distance = ultrasonic.read(); // retorna la distancia en cm
-  responseESP = responseESP8266();
-  
+
+  // obtenemos la respuesta del ESP8266
+  responseESP = responseESP8266(); 
+
+  // chequea si la respuesta es correcta o no.
   if(checkResponse(responseESP)) {
-     // Enviar el dato al monitor serial
+     // imprimimos la respuesta en el Monitor Serial
     Serial.println("Respuesta: ");
     Serial.println(responseESP);
 
-    // Conexion del servidor
+    // verfica si el comando en el que estamos, es para configurar el servidor
     if (ordenes[index].equals("AT+CIPSERVER=1,80")) {
-      int esperar = 0;
+      int esperar = 0; // Contador para esperar la conexión
       responseESP = "";
+
+      // ciclo donde esperaremos la conexion de un cliente
       while (true) {
         Serial.println("Esperando conexion...");
-        Serial.println(ordenes[index]);
+        Serial.println(ordenes[index]); // mostroamos en el monitor serial el comando actual en que estamos
         
-        responseESP = responseESP8266();
+        responseESP = responseESP8266();  // en cada iteracion del ciclo, siempre consultaremos si el ESP8266 tiene algo que responder
+
+        // en caso de tener una respuesta, verificamos si es una solicitud de un cliente
         if (checkConecction(responseESP)) {
            index++;
-           esp8266.println(ordenes[index]);
+           esp8266.println(ordenes[index]);  // enviamos el siguiente comando formando el numero de bytes
            delay(500);
            
            // verficamos si se puede enviar mensaje
@@ -85,7 +93,9 @@ void loop() {
         esperar++;
       }
     }
-  } else {
+  } 
+  // En caso de que el comando AT sea error.
+  else {
     Serial.println("ERROR EN AT");
     index = -1;
   }
