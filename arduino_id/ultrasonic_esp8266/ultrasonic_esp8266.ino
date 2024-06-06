@@ -17,7 +17,7 @@ Ultrasonic ultrasonic(triggerPin, echoPin);
 
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
 String responseESP = "";
-int index = 0; // Índice para recorrer los comandos AT
+int index = -1; // Índice para recorrer los comandos AT
 String mensaje = "";
 // comandos AT para la conexion
 String ordenes[]=
@@ -43,7 +43,7 @@ void loop() {
   distance = ultrasonic.read(); // retorna la distancia en cm
 
   // obtenemos la respuesta del ESP8266
-  responseESP = responseESP8266(); 
+  responseESP = responseESP8266(1000); 
 
   // chequea si la respuesta es correcta o no.
   if(checkResponse(responseESP)) {
@@ -61,21 +61,24 @@ void loop() {
         Serial.println("Esperando conexion...");
         Serial.println(ordenes[index]); // mostroamos en el monitor serial el comando actual en que estamos
         
-        responseESP = responseESP8266();  // en cada iteracion del ciclo, siempre consultaremos si el ESP8266 tiene algo que responder
-
+        responseESP = responseESP8266(1000);  // en cada iteracion del ciclo, siempre consultaremos si el ESP8266 tiene algo que responder
+        Serial.println(responseESP);
+        
         // en caso de tener una respuesta, verificamos si es una solicitud de un cliente
         if (checkConecction(responseESP)) {
            index++;
-           mensaje = "Distancia:" + String(distance) + "cm";
-           String comandCIPSEND = "AT+CIPSEND=0," + String(mensaje.length()); // formamos el comando para enviar el mensaje con los bytes de distancia
+           //mensaje = "Distancia: " + String(distance) + "cm";
+           String htmlContent = buildHtmlContent(distance);
+           String comandCIPSEND = "AT+CIPSEND=0," + String(htmlContent.length()); // formamos el comando para enviar el mensaje con los bytes de distancia
            esp8266.println(comandCIPSEND);  // enviamos el comando para que se pueda enviar un mensaje
            Serial.println(comandCIPSEND);
+           Serial.println(responseESP);
            delay(1000);
            
            // verficamos si se puede enviar mensaje
-           if (responseESP8266().indexOf(">") != -1) {
+           if (esp8266.find(">")) {
             // enviamos mensaje
-            esp8266.print(mensaje);
+            esp8266.print(htmlContent);
             Serial.println("Mensaje Enviado");
             // una vez enviado el mensaje salimos del ciclo para continuar con el siguiente comando, que es cerrar el CIPCLOSE
             break;
@@ -121,13 +124,15 @@ void loop() {
   }
 }
 
-String responseESP8266() {
+String responseESP8266(int timeout) {
   String response = "";
+  long int time = millis(); // medir el tiempo actual para verificar timeout
   
-  if (esp8266.available()) {    
-    while (esp8266.available()) {
+  while ((time+timeout) > millis()) {    
+    while (esp8266.available() > 0) {
       char c = esp8266.read();
-      response += c;
+      Serial.print(c);
+      //response += c;
     }
   }
   return response;
@@ -155,4 +160,18 @@ bool checkNotIsRST(int i) {
     return true;
   }
   return false;
+}
+
+String buildHtmlContent(int dynamicValue) {
+  String html = 
+    "HTTP/1.1 200 OK\r\n"
+    "Content-Type: text/html\r\n"
+    "Connection: close\r\n"
+    "\r\n"
+    "<!DOCTYPE html>"
+    "<html><head><title>ESP8266</title></head>"
+    "<body><h1>ESP8266 & HC-SRO4</h1>"
+    "<p>Distancia: " + String(dynamicValue) + " cm</p>"
+    "</body></html>";
+  return html;
 }
