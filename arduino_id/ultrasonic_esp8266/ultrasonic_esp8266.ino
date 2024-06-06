@@ -1,7 +1,18 @@
 // ESP82266 + HC-SR04
 #include <SoftwareSerial.h>
+#include <Ultrasonic.h>
+
 #define BT_RX  10
 #define BT_TX  11
+
+// SENSOR ULTRASONICO
+int triggerPin = 8;
+int echoPin = 9;
+int distance = 0;
+
+//Ultrasonic ultrasonic(trigger, echo)
+Ultrasonic ultrasonic(triggerPin, echoPin);
+
 
 SoftwareSerial esp8266(BT_RX, BT_TX); // RX, TX
 String comand = "AT";
@@ -19,6 +30,7 @@ String ordenes[]=
      "AT+CIPSERVER=0",
      "AT+RST",
   };
+ 
 
 void setup() {
   // Inicia la comunicación serial con el baud rate adecuado
@@ -27,7 +39,9 @@ void setup() {
 }
 
 void loop() {
+  distance = ultrasonic.read(); // retorna la distancia en cm
   responseESP = responseESP8266();
+  
   if(checkResponse(responseESP)) {
      // Enviar el dato al monitor serial
     Serial.println("Respuesta: ");
@@ -49,8 +63,9 @@ void loop() {
            
            // verficamos si se puede enviar mensaje
            if (responseESP8266().indexOf(">") != -1) {
+            esp8266.print("Distancia: ");
             // enviamos mensaje
-            esp8266.println(mensaje);
+            esp8266.println(distance);
             Serial.println("Mensaje Enviado");
             break;
            } else {
@@ -102,10 +117,10 @@ String responseESP8266() {
 
 bool checkResponse(String response) {
   // Verificar si la respuesta contiene "ERROR"
-    if (response.indexOf("ERROR") != -1) {
-      return false;
+    if (response.indexOf("ERROR") == -1) {
+      return true;
     }
-    return true;
+    return false;
 }
 
 bool checkConecction(String response) {

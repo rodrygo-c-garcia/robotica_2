@@ -27,6 +27,8 @@ AT+CWLAP --> busca redes disponibles
 
 AT+CWJAP="nombre_wifi","password_wifi" --> nos conectamos al red indicada
 AT+CWJAP="Flia. Colque","b805z45w"
+AT+CWJAP="Rodrigo-Infinix HOT 11 Play","b805abe5"
+
 
 AT+CWJAP? --> consultamos la red a la cual estamos conectados
 
