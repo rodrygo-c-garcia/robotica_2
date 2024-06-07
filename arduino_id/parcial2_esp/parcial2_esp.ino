@@ -45,7 +45,7 @@ void loop() {
 
       String comandCIPSEND = "AT+CIPSEND=0," + String(htmlContent.length()) + "\r\n"; // formamos el comando para enviar el mensaje con los bytes de distancia
       
-      sendData(comandCIPSEND,1000);
+      sendData(comandCIPSEND,1000); // enviamos el comando al ESP8266
 
       // enviamos el codigo HTML
       esp8266.print(htmlContent);
@@ -112,7 +112,7 @@ String buildHtmlContent(String distance) {
     "  margin: 0;"
     "  align-items: center;"
     "  justify-content: center;"
-    "  background-color: #f2f2f2;" /* Gris claro */
+    "  background-color: #f2f2f2;"
     "}"
     ".container {"
     "  display: flex;"
@@ -149,7 +149,7 @@ String buildHtmlContent(String distance) {
     "<div class='container'>"
     "<h1>ESP8266 & HC-SRO4</h1>"
     "<h2>Distancia: <span style='font-size: 3em;'>" + distance + " cm</span></h2>"
-    "<button id='reloadButton' onclick='reloadPage()' disabled>Solicitar</button>" 
+    "<button id='reloadButton' onclick='reloadPage()' disabled>Solicitar Distancia</button>" 
     "<p style='font-size: 2em;'>Solicitud disponible en <span id='countdown'></span> segundos</p>"
     "<script>"
     "function reloadPage() {"
