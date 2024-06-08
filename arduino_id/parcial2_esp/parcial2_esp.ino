@@ -1,3 +1,36 @@
+/* 
+  Este programa utiliza un ESP8266 y un sensor ultrasónico HC-SR04 para medir distancias y 
+  mostrar los resultados en una página web.
+
+  Desarrollado por los estudiantes:
+  - Ariel Rodrigo Colque Garcia (Ing. en Ciencias de la Computacion)
+  - Omar Cruz Quiroga (Ing. en Telecomunicaciones)
+  
+  Para configurar y conectar el ESP8266 a una red WiFi, sigue estos pasos:
+  1. Carga un código vacío en el Arduino para usarlo como un puente serial.
+  2. Conecta el pin TX del ESP8266 al pin TX del Arduino.
+  3. Conecta el pin RX del ESP8266 al pin RX del Arduino.
+  4. Abre el Monitor Serial del IDE de Arduino y usa los siguientes comandos AT para conectar el ESP8266 a tu red WiFi:
+     - AT+CWJAP="tu_SSID","tu_contraseña"     (Para conectarse a la red WiFi)
+     - AT+CIFSR                             (Para obtener la dirección IP asignada)
+  5. Una vez conectado y obtenida la IP, reconfigura las conexiones:
+     - Conecta el pin TX del ESP8266 al pin RX del Arduino (pin 10)
+     - Conecta el pin RX del ESP8266 al pin TX del Arduino (pin 11)
+     - Conecta los pines del sensor ultrasónico al Arduino (triggerPin = 8, echoPin = 9)
+  6. Carga el código a continuación en el Arduino y ejecuta.
+    Funcionalidad del programa:
+    - Una vez ejecutado el programa, el servidor se iniciará en el puerto 80 para escuchar peticiones.
+    - El Monitor Serial mostrará la distancia a enviar medida por el sensor ultrasónico.
+    - Cuando se recibe una solicitud del cliente, se envía un código HTML al ESP8266 junto con la distancia capturada.
+    - Después de enviar la respuesta, el ESP8266 se reinicia para liberar el buffer y evitar saturaciones.
+    - Debido al reinicio, la página web no estará disponible durante 12 segundos.
+    - Pasados los 12 segundos, se podrá hacer una nueva solicitud, repitiendo el ciclo.
+
+  Nota: Asegúrate de que la configuración de pines en el código coincide con las conexiones físicas.
+
+  Código principal:
+*/
+
 // ESP82266 + HC-SR04
 #include <SoftwareSerial.h>
 #include <Ultrasonic.h>
