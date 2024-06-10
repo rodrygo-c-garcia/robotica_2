@@ -8,4 +8,7 @@ En este repositorio, exploraremos los conceptos avanzados de robótica, centrán
 
 **Arduino:** Aquí encontrarás ejemplos de programas y proyectos que utilizan Arduino, una plataforma de prototipado electrónico, para controlar y automatizar componentes y actuadores.
 
+**ESP8266-01 como Publicador MQTT:** En esta sección, aprenderemos cómo utilizar el módulo WiFi ESP8266-01 como un publicador MQTT. El ESP8266-01 se programará para conectarse a un broker Mosquitto y publicar datos en un tema específico. Esto permitirá al ESP8266-01 enviar información a otros dispositivos suscritos al mismo tema en el broker MQTT. Esta funcionalidad es fundamental en aplicaciones de IoT donde se requiere enviar datos desde el ESP8266-01 a otros dispositivos conectados a la red MQTT.
+
+
 En esta sección, exploraremos proyectos y ejemplos que combinan OpenCV, MQTT (utilizando el broker Mosquitto) y Arduino para crear aplicaciones de robótica avanzadas, incluida la detección de objetos utilizando una cámara integrada en un robot. MQTT es un protocolo de mensajería ligero y de código abierto diseñado para dispositivos con recursos limitados y redes de baja capacidad, lo que lo hace ideal para la comunicación entre dispositivos IoT en tiempo real. Mosquitto, por su parte, es un broker de MQTT de código abierto ampliamente utilizado en implementaciones de IoT y sistemas de mensajería en tiempo real.
