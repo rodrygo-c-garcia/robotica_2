@@ -1,0 +1,46 @@
+Código Arduino 
+
+
+#include <Ultrasonic.h>
+#include <SoftwareSerial.h>
+
+Ultrasonic ultrasonic(7, 6);       // (Trig PIN, Echo PIN)
+SoftwareSerial wifiModule(10, 11); // (RX, TX)
+
+String request;
+
+void setup()
+{
+    Serial.begin(9600);
+    wifiModule.begin(115200);
+    while (!wifiModule.available())
+        ;
+    String ip;
+    while (wifiModule.available())
+    {
+        char c = wifiModule.read();
+        ip += c;
+    }
+    Serial.println(ip);
+}
+
+void loop()
+{
+    if (wifiModule.available())
+    {
+        while (wifiModule.available())
+        {
+            char c = wifiModule.read();
+            request += c;
+        }
+        request = "on";
+        Serial.println(request);
+        if (request == "on")
+        {
+            String distance = String(ultrasonic.read());
+            Serial.println(distance);
+            wifiModule.println(distance);
+        }
+    }
+    request = "";
+}
