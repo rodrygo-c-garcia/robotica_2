@@ -12,7 +12,7 @@ AT+RESTORE --> Reestablece todas las configuraciones
 AT+GMR --> muestra la version del firmware
 AT+CIOBAUD=9600
 AT+UART_CUR=9600,8,1,0,0
-AT+IPR=9600
+AT+IPR=115200
 
 ###### STATION o CLIENTE
 AT+CWHOSTNAME? --> obtiene el nombre de la estacion
